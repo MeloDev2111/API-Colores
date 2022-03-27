@@ -25,7 +25,7 @@ class ColorsTableSeeder extends Seeder
         for ($i = 0; $i < $no_fake_records; $i++){
             Color::create([
                 'name' => $faker->colorName(),
-                'color' => substr($faker->hex_color(), 1),
+                'color' => substr($faker->hexColor(), 1),
                 'pantone_value' => $faker->numberBetween(10, 15)."-".
                     sprintf("%04d", $faker->numberBetween(0,9999)),
                 'year' => $faker->year(),
