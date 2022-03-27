@@ -1,4 +1,4 @@
-<p align="center" style="font-size: 3em; margin-bottom: 0">API COLORES</p>
+# API COLORES
 <p align="center" style="margin-top: 0"><img height="210" src="public/images/colors-logo.png"/></p>
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
