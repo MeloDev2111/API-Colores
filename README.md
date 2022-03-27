@@ -19,6 +19,7 @@ Formatos de Intercambio **JSON y XML**.
   - PHP 8.0.2 : Programming Language
   - Laravel Framework 9.5.1 : PHP Framework 
   - Composer : Dependency Management for PHP
+  - MySQL : Relational DBMS
   - Postman : API Testing
   - Docker : Containers
 
@@ -60,6 +61,11 @@ php artisan cache:clear
 ### Recargar las configuraciones de composer.json
 ```shell
 composer dump-autoload
+```
+
+### Ejecutar las migraciones a la BD
+```shell
+php artisan migrate
 ```
 
 ### Generar nueva llave para artisan
