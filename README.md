@@ -7,9 +7,9 @@
 <a href=""><img src="https://img.shields.io/badge/Postman-FF6C37?logo=postman&logoColor=white" alt="Postman"></a>
 </p>
 
-## 🟠 Acerca de la API
+## 🔴 Acerca de la API
 
-API destinanda a **gestionar los colores estandarizados seleccionados** para los productos; 
+API destinanda a **gestionar los colores estandarizados seleccionados para los productos**; 
 para páginas web, nuevos diseños, flyers y redes sociales.
 
 Formatos de Intercambio **JSON y XML**.
@@ -26,7 +26,12 @@ Formatos de Intercambio **JSON y XML**.
 ## [🔵 Deploy en Heroku](http://api-colors.herokuapp.com/colors)
 ### [http://api-colors.herokuapp.com/colors](http://api-colors.herokuapp.com/colors)
 
-## 🔴 Instalación de dependencias y run del proyecto
+## 🟣 Instalación de dependencias y run del proyecto
+### Clonación del Repositorio
+```shell
+git clone https://github.com/MeloDev2111/API-Colores
+```
+
 ### Instalación de Dependencias
 ```shell
 composer install
