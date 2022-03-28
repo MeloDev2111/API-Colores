@@ -20,13 +20,29 @@
 							],
 							"path": [
 								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Paginated XML",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/colors",
+							"host": [
+								"{{base_url}}"
 							],
-							"query": [
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
-								}
+							"path": [
+								"colors"
 							]
 						}
 					},
@@ -49,11 +65,6 @@
 								{
 									"key": "page",
 									"value": "2"
-								},
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
 								}
 							]
 						}
@@ -73,13 +84,36 @@
 							"path": [
 								"colors",
 								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Color by ID XML",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/colors/21",
+							"host": [
+								"{{base_url}}"
 							],
-							"query": [
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
-								}
+							"path": [
+								"colors",
+								"21"
 							]
 						}
 					},
@@ -98,13 +132,6 @@
 							"path": [
 								"colors",
 								"999"
-							],
-							"query": [
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -525,13 +552,29 @@
 							],
 							"path": [
 								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Paginated XML",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{production_url}}/colors",
+							"host": [
+								"{{production_url}}"
 							],
-							"query": [
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
-								}
+							"path": [
+								"colors"
 							]
 						}
 					},
@@ -554,11 +597,6 @@
 								{
 									"key": "page",
 									"value": "3"
-								},
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
 								}
 							]
 						}
@@ -578,13 +616,36 @@
 							"path": [
 								"colors",
 								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Color by ID XML",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{production_url}}/colors/21",
+							"host": [
+								"{{production_url}}"
 							],
-							"query": [
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
-								}
+							"path": [
+								"colors",
+								"21"
 							]
 						}
 					},
@@ -603,13 +664,6 @@
 							"path": [
 								"colors",
 								"999"
-							],
-							"query": [
-								{
-									"key": "format",
-									"value": "xml",
-									"disabled": true
-								}
 							]
 						}
 					},
