@@ -128,6 +128,7 @@ class ColorController extends Controller
         if ($color == null) {return response()->json([], 404);}
         $color->color = "#".$color->color;
         // 200 OK
+        //if($format == "xml"){return response($color,200)->;}
         return response()->json($color, 200);
     }
 
@@ -154,8 +155,15 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
-        Color::delete($id);
-        // 204 No Content (en-US)
-        return respones()->json(null, 204);
+        try{
+            $color_to_destroy = Color::where("id","=", $id)->first();
+            if ($color_to_destroy === null) {return response()->json(["error"=>"Not Found"], 404);}
+            $color_to_destroy->delete();
+            // 204 No Content (en-US)
+            return response()->json(null, 204);
+        }catch (\Throwable $th) {
+            // 500 Internal Server Error
+            return response()->json(["error"=> "Internal Server Error".$th], 500);
+        }
     }
 }
