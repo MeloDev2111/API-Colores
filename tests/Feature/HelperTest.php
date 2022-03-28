@@ -8,7 +8,7 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use Tests\TestCase;
 use App\Models\Color;
 
-class ColorClassTest extends TestCase
+class HelperTest extends TestCase
 {
     public function test_hex_code_only_has_one_or_zero_hashtag(){
         $this->assertNotEquals(true, is_hexcode("##FF2AA"));
