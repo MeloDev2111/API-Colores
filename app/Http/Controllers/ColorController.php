@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Color;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
+use SimpleXMLElement;
 
 
 class ColorController extends Controller
@@ -47,6 +48,15 @@ class ColorController extends Controller
         $selectedData["last_page"] = $pagination->lastPage();
         $selectedData["per_page"] = $pagination->perPage();
         $selectedData["total"] = $pagination->total();
+
+        if(\request()->getContentType() == "xml"){
+            $data = json_decode(json_encode($selectedData), true);
+            $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><data></data>');
+            // helper function call to convert array to xml
+            $xml_data = array_to_xml($selectedData,$xml_data, "colors");
+            // 206: Partial content
+            return response($xml_data->asXML(),206)->header("Content-type","text/xml");
+        }
 
         // 206: Partial content
         return response()->json($selectedData , 206);
@@ -99,8 +109,17 @@ class ColorController extends Controller
         $color = Color::find($id);
         if ($color == null) {return response()->json([], 404);}
         $color->color = "#".$color->color;
+
+        if(\request()->getContentType() == "xml"){
+            $data = json_decode(json_encode($color->toArray()), true);
+            $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><color></color>');
+            // helper function call to convert array to xml
+            $xml_data = array_to_xml($data,$xml_data);
+            // 200 OK
+            return response($xml_data->asXML(),200)->header("Content-type","text/xml");
+        }
+
         // 200 OK
-        //if($format == "xml"){return response($color,200)->;}
         return response()->json($color, 200);
     }
 
