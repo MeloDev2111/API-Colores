@@ -35,6 +35,8 @@ class ColorController extends Controller
         //Solution for columns parameter not working in method Paginate
         $selectedData = [];
         $selectedData["colors"] = $pagination->transform(function($item){
+            //adding # to color hex code
+            $item["color"] = "#".$item["color"];
             return $item;
         });
         // Recreate because transform removed pagination properties
