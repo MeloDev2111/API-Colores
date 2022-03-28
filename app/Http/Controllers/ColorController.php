@@ -22,8 +22,8 @@ class ColorController extends Controller
         $props_to_show = ["id","name","color"];
         $metadata_to_show = ["data", "current_page","next_page_url","previous_page_url","last_page","per_page","total"];
         $pagination = Color::select($props_to_show)
-                            ->orderBy("created_at","DESC")
                             ->orderBy("updated_at","DESC")
+                            ->orderBy("created_at","DESC")
                             ->paginate(
                                 $perPage = $n_items,
                                 //This parameter it's not working
