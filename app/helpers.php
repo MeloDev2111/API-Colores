@@ -19,3 +19,22 @@ if (! function_exists('get_pantone_code')) {
         return false;
     }
 }
+
+# XML Generator
+if (! function_exists('array_to_xml')) {
+    function array_to_xml( $data, &$xml_data, $default_tag = "item") {
+        foreach( $data as $key => $value ) {
+            if( is_array($value) or is_object($value) ) {
+                if( is_numeric($key) ){
+                    $key = $default_tag; //dealing with <0/>..<n/> issues
+                }
+                $valueParsed = is_object($value)? json_decode(json_encode($value), true) :$value;
+                $sub_node = $xml_data->addChild($key);
+                array_to_xml($valueParsed, $sub_node);
+            } else {
+                $xml_data->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+        return $xml_data;
+    }
+}
