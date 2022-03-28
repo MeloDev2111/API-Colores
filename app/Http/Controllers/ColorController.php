@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use Illuminate\Http\Request;
 use App\Models\Color;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
-use phpDocumentor\Reflection\Types\Boolean;
-use const Grpc\STATUS_INTERNAL;
-use const Grpc\STATUS_OK;
+
 
 class ColorController extends Controller
 {
@@ -19,8 +18,36 @@ class ColorController extends Controller
      */
     public function index()
     {
+        $n_items = 3;
+        $props_to_show = ["id","name","color"];
+        $metadata_to_show = ["data", "current_page","next_page_url","previous_page_url","last_page","per_page","total"];
+        $pagination = Color::select($props_to_show)
+                            ->orderBy("created_at","DESC")
+                            ->orderBy("updated_at","DESC")
+                            ->paginate(
+                                $perPage = $n_items,
+                                //This parameter it's not working
+                                $columns  = $metadata_to_show,
+                                $pageName = "page"
+                            );
+
+
+        //Solution for columns parameter not working in method Paginate
+        $selectedData = [];
+        $selectedData["colors"] = $pagination->transform(function($item){
+            return $item;
+        });
+        // Recreate because transform removed pagination properties
+        // metadata selected to show;
+        $selectedData["current_page"] = $pagination->currentPage();
+        $selectedData["next_page_url"] = $pagination->nextPageUrl();
+        $selectedData["previous_page_url"] = $pagination->previousPageUrl();
+        $selectedData["last_page"] = $pagination->lastPage();
+        $selectedData["per_page"] = $pagination->perPage();
+        $selectedData["total"] = $pagination->total();
+
         // 206: Partial content
-        return response()->json(Color::all(), 206);
+        return response()->json($selectedData , 206);
     }
 
     /**
