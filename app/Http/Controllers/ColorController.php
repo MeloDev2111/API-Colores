@@ -124,24 +124,25 @@ class ColorController extends Controller
 
         // response
         $dataColor=[
+            'id' => $id,
             'name'=>$dataRequest['name'],
             'color'=>$dataRequest['color'],
             'pantone_value'=>$dataRequest['pantone_value'],
             'year'=>$dataRequest['year'],
         ];
 
-        // try insert
+        // try update
         try {
-            $insertColor = Color::create($dataColor);
-            // 201 Created
-            return response()->json($insertColor, 201);
+            $color_to_update = Color::where("id","=", $id)->first();
+            if ($color_to_update === null) {return response()->json(["error"=>"Not Found"], 404);}
+            $color_to_update->update($dataColor);
+            // 200 OK
+            return response()->json($color_to_update, 200);
         } catch (\Throwable $th) {
             // 500 Internal Server Error
             return response()->json(null, 500);
         }
 
-        // 200 OK
-        return response()->json($color, 200);
     }
 
     /**
