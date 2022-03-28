@@ -61,41 +61,13 @@ class ColorController extends Controller
     public function store(Request $request)
     {
         //example: {"name":"El Rojito","color":"#FF0000","pantone_value":"15-1234","year":"2022"}
-        $validator = Validator::make(request()->all(), [
-            'name' => 'required|max:100',
-            'color' => ['required',
-                            function ($attribute, $value, $fail) {
-                                $msg = is_hexcode($value);
-                                if ($msg != '' and gettype($msg) != "boolean") {
-                                    $fail('The '.$attribute.' '.$msg);
-                                }
-                            },
-                        ],
-            'pantone_value' => ['required', 'max:7', 'regex:/^[0-9]{2}-[0-9]{4}/'],
-            'year' => 'max:4'
-        ]);
+        $validator = $this->get_color_validator(request()->all());
 
         // 400 Bad Request
         if($validator->fails()){return response()->json(["errors" => $validator->errors()->all(),] ,400);}
 
-        // Validating default values [year, pantone]
-        $dataRequest=$validator->validated();
-
-        if(!isset($dataRequest["year"])){
-            $year = date('Y', time());
-            $dataRequest["year"] = $year;
-        }
-
-        if(!isset($dataRequest["pantone_value"])){
-            // possible feature to implement
-            // $dataRequest["pantone_value"] = get_pantone_code($dataRequest['color']);
-            return response()->json(["errors"=>"missing pantone value",],400);
-        }
-
-        // removing # from color hex code if exist
-        $color = $dataRequest['color'];
-        $dataRequest['color'] = $color[0] == "#" ? substr($color, 1) : $color;
-        $dataRequest['color'] = strtolower($dataRequest['color']);
+        // Formatting request to save in bd
+        $dataRequest= $this->formatting_request($validator->validated());
 
         // response
         $dataColor=[
@@ -141,8 +113,33 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $color = $request->all();
-        echo $color;
+        //example: {"name":"El Rojito","color":"#FF0000","pantone_value":"15-1234","year":"2022"}
+        $validator = $this->get_color_validator(request()->all());
+
+        // 400 Bad Request
+        if($validator->fails()){return response()->json(["errors" => $validator->errors()->all(),] ,400);}
+
+        // Formatting request to save in bd
+        $dataRequest= $this->formatting_request($validator->validated());
+
+        // response
+        $dataColor=[
+            'name'=>$dataRequest['name'],
+            'color'=>$dataRequest['color'],
+            'pantone_value'=>$dataRequest['pantone_value'],
+            'year'=>$dataRequest['year'],
+        ];
+
+        // try insert
+        try {
+            $insertColor = Color::create($dataColor);
+            // 201 Created
+            return response()->json($insertColor, 201);
+        } catch (\Throwable $th) {
+            // 500 Internal Server Error
+            return response()->json(null, 500);
+        }
+
         // 200 OK
         return response()->json($color, 200);
     }
@@ -165,5 +162,44 @@ class ColorController extends Controller
             // 500 Internal Server Error
             return response()->json(["error"=> "Internal Server Error".$th], 500);
         }
+    }
+
+    private function get_color_validator($request){
+        return Validator::make($request, [
+            'name' => 'required|max:100',
+            'color' => ['required',
+                function ($attribute, $value, $fail) {
+                    $msg = is_hexcode($value);
+                    if ($msg != '' and gettype($msg) != "boolean") {
+                        $fail('The '.$attribute.' '.$msg);
+                    }
+                },
+            ],
+            'pantone_value' => ['required', 'max:7', 'regex:/^[0-9]{2}-[0-9]{4}/'],
+            'year' => 'max:4'
+        ]);
+    }
+
+    private function formatting_request($data){
+        // Validating default values [year, pantone]
+
+        // default valur for year = actual year
+        if(!isset($data["year"])){
+            $year = date('Y', time());
+            $data["year"] = $year;
+        }
+
+        // structure for possible feature, calculate the most close pantone value to the hex color
+        if(!isset($data["pantone_value"])){
+            // possible feature to implement
+            // $dataRequest["pantone_value"] = get_pantone_code($dataRequest['color']);
+        }
+
+        // removing # from color hex code if exist
+        $color = $data['color'];
+        $data['color'] = $color[0] == "#" ? substr($color, 1) : $color;
+        $data['color'] = strtolower($data['color']);
+
+        return $data;
     }
 }
