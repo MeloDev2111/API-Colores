@@ -164,7 +164,8 @@ class ColorController extends Controller
         }
     }
 
-    private function get_color_validator($request){
+    private function get_color_validator($request): \Illuminate\Contracts\Validation\Validator
+    {
         return Validator::make($request, [
             'name' => 'required|max:100',
             'color' => ['required',
@@ -193,6 +194,8 @@ class ColorController extends Controller
         if(!isset($data["pantone_value"])){
             // possible feature to implement
             // $dataRequest["pantone_value"] = get_pantone_code($dataRequest['color']);
+            // If implement this: drop required validation from get_color_validator method
+            // Implement the method get_pantone_code in helpers.
         }
 
         // removing # from color hex code if exist
