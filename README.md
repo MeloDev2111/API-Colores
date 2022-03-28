@@ -9,7 +9,7 @@
 
 ## 🔴 Acerca de la API
 
-API destinanda a **gestionar los colores estandarizados seleccionados para los productos**; 
+API destinada a **gestionar los colores estandarizados seleccionados para los productos**; 
 para páginas web, nuevos diseños, flyers y redes sociales.
 
 Formatos de Intercambio **JSON y XML**.
