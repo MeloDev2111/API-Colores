@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use Illuminate\Http\Request;
 use App\Models\Color;
+use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class ColorController extends Controller
 {
@@ -28,19 +30,42 @@ class ColorController extends Controller
     public function store(Request $request)
     {
         //example: {"name":"El Rojito","color":"#FF0000","pantone_value":"15-1234","year":"2022"}
-        $dataRequest=request()->all();
+        $validator = Validator::make(request()->all(), [
+            'name' => 'required|max:100',
+            'color' => ['required',
+                            function ($attribute, $value, $fail) {
+                                $msg = is_hexcode($value);
+                                if ($msg != '' and gettype($msg) != "boolean") {
+                                    $fail('The '.$attribute.' '.$msg);
+                                }
+                            },
+                        ],
+            'pantone_value' => ['required', 'max:7', 'regex:/^[0-9]{2}-[0-9]{4}/'],
+            'year' => 'max:4'
+        ]);
 
-        $timezone = "America/Lima";
-        date_default_timezone_set($timezone);
-        $DateAndTime = date('Y-m-d H:i:s', time());
+        if($validator->fails()){return response()->json(["errors" => $validator->errors()->all(),] ,400);}
 
+        // Validating default values [year, pantone]
+        $dataRequest=$validator->validated();
+
+        if(!isset($dataRequest["year"])){
+            $year = date('Y', time());
+            $dataRequest["year"] = $year;
+        }
+
+        if(!isset($dataRequest["pantone_value"])){
+            // possible feature to implement
+            // $dataRequest["pantone_value"] = get_pantone_code($dataRequest['color']);
+            return response()->json(["errors"=>"missing pantone value",],400);
+        }
+
+        // removing # from color hex code if exist
         $color = $dataRequest['color'];
-        // validate color hex code
-        if(!$this->is_hexcode($color)){return "error";}
-
-        //remove # from color hex code
         $dataRequest['color'] = $color[0] == "#" ? substr($color, 1) : $color;
+        $dataRequest['color'] = strtolower($dataRequest['color']);
 
+        // response
         $dataColor=[
             'name'=>$dataRequest['name'],
             'color'=>$dataRequest['color'],
@@ -48,10 +73,9 @@ class ColorController extends Controller
             'year'=>$dataRequest['year'],
         ];
 
-        return response()->json($dataColor, 201);
-        //
+        // try insert
         try {
-            $insertColor = Color::insert($dataColor);
+            $insertColor = Color::create($dataColor);
             return response()->json($insertColor, 201);
         } catch (\Throwable $th) {
             return response()->json(null, 400);
