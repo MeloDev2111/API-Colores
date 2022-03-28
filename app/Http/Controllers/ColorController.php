@@ -40,8 +40,8 @@ class ColorController extends Controller
         // Recreate because transform removed pagination properties
         // metadata selected to show;
         $selectedData["current_page"] = $pagination->currentPage();
-        $selectedData["next_page_url"] = $pagination->nextPageUrl();
-        $selectedData["previous_page_url"] = $pagination->previousPageUrl();
+        $selectedData["next_page"] = $pagination->nextPageUrl();
+        $selectedData["previous_page"] = $pagination->previousPageUrl();
         $selectedData["last_page"] = $pagination->lastPage();
         $selectedData["per_page"] = $pagination->perPage();
         $selectedData["total"] = $pagination->total();
