@@ -94,7 +94,7 @@ php artisan db:seed --class=ColorsTableSeeder
 Se puede configurar la cantidad de registros a generar en el archivo
 [ColorsTableSeeder](database/seeders/ColorsTableSeeder.php)
 
-> ruta : database/seeders/ColorsTableSeeder.php
+> Ruta : database/seeders/ColorsTableSeeder.php
 
 Modificando la variable $no_fake_records = 50 a el valor deseado;
 ```php
@@ -102,6 +102,6 @@ $faker = \Faker\Factory::create();
 $no_fake_records = 50;
 ```
 
-## /ENDPOINTS
+## [Colección de Endpoints en Postman 👀](public/API-Colores%20Collection.postman_collection.json)
 
-> Por definir
+> Ruta: public/API-Colores Collection.postman_collection.js

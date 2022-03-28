@@ -1,0 +1,1055 @@
+{
+	"info": {
+		"_postman_id": "cd09339a-5f7f-44ab-b030-68c183500f4f",
+		"name": "API-Colores Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Development Environment",
+			"item": [
+				{
+					"name": "Index Paginated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/colors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Paginated another page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/colors?page=2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Color by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/colors/21",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"21"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Color when ID not exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/colors/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"999"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Color",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "El Rojito Rust",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#B55A30",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-1248",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/colors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Error Hexcode color test",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "El Rojito",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#FF000#",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "15-1234",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/colors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multiple error test",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "El Rojito",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "color",
+									"value": "#FF000#",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "15-12-4",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/colors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Color by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/colors/49",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"49"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Color by ID when ID not exist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/colors/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Color PUT",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "French Blue Ulala",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#3078B4",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-4140",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/colors/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Color Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "French Blue Ulala",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#3078B4",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-4140",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/colors/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Color ID not exist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "French Blue Ulala",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#3078B4",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-4140",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/colors/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"colors",
+								"999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: pm.variables.get(\"base_url\") + \"/sanctum/csrf-cookie\",",
+							"    method:\"get\",",
+							"}, function(error, response, {cookies}){",
+							"    pm.collectionVariables.set(\"csrf-token\", cookies.get(\"XSRF-TOKEN\"))",
+							"})"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Production Environment",
+			"item": [
+				{
+					"name": "Index Paginated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{production_url}}/colors",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Paginated another page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{production_url}}/colors?page=3",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "3"
+								},
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Color by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{production_url}}/colors/21",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"21"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Color when ID not exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{production_url}}/colors/999",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"999"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "xml",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Color",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "El Rojito Rust",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#B55A30",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-1248",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{production_url}}/colors",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Error Hexcode color test",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "El Rojito",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#FF000#",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "15-1234",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{production_url}}/colors",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multiple error test",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "El Rojito",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "color",
+									"value": "#FF000#",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "15-12-4",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{production_url}}/colors",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Color by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{production_url}}/colors/49",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"49"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Color by ID when ID not exist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{production_url}}/colors/999",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Color PUT",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "French Blue Ulala",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#3078B4",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-4140",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{production_url}}/colors/2",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Color Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "French Blue Ulala",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#3078B4",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-4140",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{production_url}}/colors/3",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Color ID not exist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{csrf-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "French Blue Ulala",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "#3078B4",
+									"type": "text"
+								},
+								{
+									"key": "pantone_value",
+									"value": "18-4140",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2022",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{production_url}}/colors/999",
+							"host": [
+								"{{production_url}}"
+							],
+							"path": [
+								"colors",
+								"999"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: pm.variables.get(\"production_url\") + \"/sanctum/csrf-cookie\",",
+							"    method:\"get\",",
+							"}, function(error, response, {cookies}){",
+							"    pm.collectionVariables.set(\"csrf-token\", cookies.get(\"XSRF-TOKEN\"))",
+							"})"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "production_url",
+			"value": "http://api-colors-dev.herokuapp.com",
+			"type": "string"
+		},
+		{
+			"key": "csrf-token",
+			"value": ""
+		}
+	]
+}
