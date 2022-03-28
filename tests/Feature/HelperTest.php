@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use Tests\TestCase;
-use App\Models\Color;
 
 class HelperTest extends TestCase
 {
