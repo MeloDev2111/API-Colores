@@ -20,8 +20,8 @@ Formatos de Intercambio **JSON y XML**.
   - Laravel Framework 9.5.1 : PHP Framework 
   - Composer : Dependency Management for PHP
   - MySQL : Relational DBMS
+  - PHPUnit: Unit Testing
   - Postman : API Testing
-  - Docker : Containers
 
 
 ## [🔵 Deploy en Heroku](https://api-colors-dev.herokuapp.com/colors)
