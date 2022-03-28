@@ -88,9 +88,19 @@ URL
 > [http://127.0.0.1:8000](http://127.0.0.1:8000)
     
 ## 🟡 Población la base de datos en desarrollo
+```php
+php artisan db:seed --class=ColorsTableSeeder
+```
+Se puede configurar la cantidad de registros a generar en el archivo
+[ColorsTableSeeder](database/seeders/ColorsTableSeeder.php)
 
-> Por definir
+> ruta : database/seeders/ColorsTableSeeder.php
 
+Modificando la variable $no_fake_records = 50 a el valor deseado;
+```php
+$faker = \Faker\Factory::create();
+$no_fake_records = 50;
+```
 
 ## /ENDPOINTS
 
