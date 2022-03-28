@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Color;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\Types\Boolean;
+use const Grpc\STATUS_INTERNAL;
+use const Grpc\STATUS_OK;
 
 class ColorController extends Controller
 {
@@ -17,7 +19,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        // codigo 206, para resultados paginados
+        // 206: Partial content
         return response()->json(Color::all(), 206);
     }
 
@@ -44,6 +46,7 @@ class ColorController extends Controller
             'year' => 'max:4'
         ]);
 
+        // 400 Bad Request
         if($validator->fails()){return response()->json(["errors" => $validator->errors()->all(),] ,400);}
 
         // Validating default values [year, pantone]
@@ -76,9 +79,11 @@ class ColorController extends Controller
         // try insert
         try {
             $insertColor = Color::create($dataColor);
+            // 201 Created
             return response()->json($insertColor, 201);
         } catch (\Throwable $th) {
-            return response()->json(null, 400);
+            // 500 Internal Server Error
+            return response()->json(null, 500);
         }
     }
 
@@ -91,6 +96,7 @@ class ColorController extends Controller
     public function show($id)
     {
         $color = Color::find($id);
+        // 200 OK
         return response()->json($color, 200);
     }
 
@@ -105,6 +111,7 @@ class ColorController extends Controller
     {
         $color = $request->all();
         echo $color;
+        // 200 OK
         return response()->json($color, 200);
     }
 
@@ -117,6 +124,7 @@ class ColorController extends Controller
     public function destroy($id)
     {
         Color::delete($id);
+        // 204 No Content (en-US)
         return respones()->json(null, 204);
     }
 }
