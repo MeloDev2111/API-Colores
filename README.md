@@ -102,6 +102,13 @@ $faker = \Faker\Factory::create();
 $no_fake_records = 50;
 ```
 
+## Run los Tests
+
+```php
+php artisan test
+```
+
+
 ## [Colección de Endpoints en Postman 👀](public/API-Colores%20Collection.postman_collection.json)
 
 > Ruta: public/API-Colores Collection.postman_collection.js
