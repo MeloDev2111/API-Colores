@@ -125,6 +125,8 @@ class ColorController extends Controller
     public function show($id)
     {
         $color = Color::find($id);
+        if ($color == null) {return response()->json([], 404);}
+        $color->color = "#".$color->color;
         // 200 OK
         return response()->json($color, 200);
     }
